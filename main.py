@@ -1,6 +1,7 @@
-# main.py# import the necessary packages
+# main.py
+# import the necessary packages
 from flask import Flask, render_template, Response, json
-from camera import VideoCamera
+from libs.camera import VideoCamera
 import time
 app = Flask(__name__)
 

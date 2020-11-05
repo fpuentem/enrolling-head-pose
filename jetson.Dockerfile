@@ -76,8 +76,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         python3-pip \
         python3-scipy \
         python3-wget \
-    && pip install -r requirements.txt \
-    && pip install imutils \
+    && pip3 install -r requirements.txt \
+    && pip3 install imutils \
     && apt-get purge -y \
         pkg-config \
     && apt-get autoremove -y

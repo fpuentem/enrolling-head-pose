@@ -104,7 +104,7 @@ RUN cd /tmp/ && \
     python3 setup.py install && \
     rm -rf /tmp/*
 
-# Installing other modules of python
+# Installing Flask
 COPY ./requirements.txt /
 RUN apt-get install -y --fix-missing \
 	python3-matplotlib \

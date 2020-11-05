@@ -62,27 +62,57 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # https://askubuntu.com/questions/909277/avoiding-user-interaction-with-tzdata-when-installing-certbot-in-a-docker-contai
 ARG DEBIAN_FRONTEND=noninteractive
 
-COPY ./requirements.txt /
+
+# Installing dlib(Python3)
+RUN apt-get -y update
+RUN apt-get install -y --fix-missing \
+    build-essential \
+    cmake \
+    gfortran \
+    git \
+    wget \
+    curl \
+    graphicsmagick \
+    libgraphicsmagick1-dev \
+    libatlas-base-dev \
+    libavcodec-dev \
+    libavformat-dev \
+    libgtk2.0-dev \
+    libjpeg-dev \
+    liblapack-dev \
+    libswscale-dev \
+    pkg-config \
+    python3-dev \
+    python3-numpy \
+	python3-setuptools \
+    software-properties-common \
+    zip \
+    && apt-get clean && rm -rf /tmp/* /var/tmp/*
+
+RUN cd /tmp && \
+	mkdir -p dlib && \
+	git clone -b 'v19.21' --single-branch https://github.com/davisking/dlib.git dlib/ && \
+	cd  dlib/ && \
+	python3 setup.py install && \
+ 	rm -rf /tmp/*
+
+# Install imutils 
+RUN cd /tmp/ && \
+    curl -L https://files.pythonhosted.org/packages/b5/94/46dcae8c061e28be31bcaa55c560cb30ee9403c9a4bb2659768ec1b9eb7d/imutils-0.5.3.tar.gz -o imutils-0.5.3.tar.gz && \
+    tar zxvf imutils-0.5.3.tar.gz && rm imutils-0.5.3.tar.gz && \
+    cd imutils-0.5.3/ && \
+    python3 setup.py install && \
+    rm -rf /tmp/*
 
 # Installing other modules of python
-RUN apt-get update && apt-get install -y --no-install-recommends \
-        build-essential \
-        # tzdata \
-        # libboost-python-dev \
-        # libboost-thread-dev \
-        pkg-config \
-        python3-dev \
-        python3-matplotlib \
-        python3-numpy \
-        python3-pillow \
-        python3-pip \
-        python3-scipy \
-        python3-wget \
-    && pip3 install -r requirements.txt \
-    && pip3 install imutils \
-    && apt-get purge -y \
-        pkg-config \
-    && apt-get autoremove -y
+COPY ./requirements.txt /
+RUN apt-get install -y --fix-missing \
+	python3-matplotlib \
+	python3-pip \
+	python3-scipy \
+	python3-wget
+
+RUN pip3 install -r requirements.txt 
 
 COPY . /repo/
 WORKDIR /repo

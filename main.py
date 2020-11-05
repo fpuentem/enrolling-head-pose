@@ -22,6 +22,10 @@ def index():
     # rendering webpage
     return render_template('index.html')
 
+@app.route('/home')
+def home():
+    return "<h1>Face Enrolling - VisioTech</h1>"
+
 def gen(camera):
     global face_det
     global status_of_registration

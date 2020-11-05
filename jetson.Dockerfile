@@ -62,12 +62,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # https://askubuntu.com/questions/909277/avoiding-user-interaction-with-tzdata-when-installing-certbot-in-a-docker-contai
 ARG DEBIAN_FRONTEND=noninteractive
 
+COPY ./requirements.txt /
+
 # Installing other modules of python
 RUN apt-get update && apt-get install -y --no-install-recommends \
         build-essential \
-        tzdata \
-        libboost-python-dev \
-        libboost-thread-dev \
+        # tzdata \
+        # libboost-python-dev \
+        # libboost-thread-dev \
         pkg-config \
         python3-dev \
         python3-matplotlib \

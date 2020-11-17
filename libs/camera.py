@@ -96,6 +96,7 @@ class VideoCamera():
         #extracting frames
         ret, frame = self.video.read()
 
+        frame = frame[:, 1280:]                    
         if ret:
             self.face_rects = detector(frame, 0)
             if len(self.face_rects) > 0:

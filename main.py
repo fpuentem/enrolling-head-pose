@@ -24,7 +24,7 @@ def index():
 
 @app.route('/home')
 def home():
-    return "<h1>Face Enrolling - VisioTech</h1>"
+    return "<h1>Face Enrolling - VisionTech</h1>"
 
 def gen(camera):
     global face_det

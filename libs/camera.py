@@ -94,9 +94,13 @@ class VideoCamera():
     
     def get_frame(self):
         #extracting frames
-        ret, frame = self.video.read()
-
-        frame = frame[:, 1280:]                    
+        ret, fr_initial = self.video.read()
+        fr_part_right = fr_initial[:, 1280:]
+        width = int(fr_part_right.shape[1] * ds_factor)                    
+        height = int(fr_part_right.shape[0] * ds_factor)
+        dim = (width, height)
+        frame = cv2.resize(fr_part_right, dim)
+        
         if ret:
             self.face_rects = detector(frame, 0)
             if len(self.face_rects) > 0:

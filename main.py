@@ -2,7 +2,11 @@
 # import the necessary packages
 from flask import Flask, render_template, Response, json
 from libs.camera import VideoCamera
+
+from datetime import datetime
 import time
+import csv
+
 app = Flask(__name__)
 
 
@@ -71,6 +75,36 @@ def current_path():
         mimetype='application/json'
     )
     return response
+
+@app.route('/set_name/<name>', methods=['GET'])
+def set_name(name):
+    # writing to csv file  
+    filename = './pictures/person_0/names.txt'
+    fields = ['name', 'path', 'date']
+    # time stamp 
+    now = datetime.now() # current date and time
+    date_time = now.strftime("%m/%d/%Y %H:%M:%S")
+
+    # my data rows as dictionary objects  
+    mydict =[{'name': name, 'path': path_of_current_person, 'date': date_time}]
+
+    with open(filename, 'w') as csvfile:  
+        # creating a csv dict writer object     
+        writer = csv.DictWriter(csvfile, fieldnames = fields)  
+            
+        # writing headers (field names)  
+        writer.writeheader()  
+            
+        # writing data rows  
+        writer.writerows(mydict)
+
+    response = app.response_class(
+        response=json.dumps(mydict[0]),
+        status=200,
+        mimetype='application/json'
+    )
+    return response
+
 if __name__ == '__main__':
     # defining server ip address and port
     app.run(host='0.0.0.0',port='5000', debug=True)

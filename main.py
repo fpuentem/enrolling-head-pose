@@ -3,7 +3,7 @@
 from flask import Flask, render_template, Response, json, request
 from libs.camera import VideoCamera
 
-from datetime import datetime
+
 import time
 import csv
 import subprocess
@@ -74,7 +74,7 @@ def taken_pictures():
 def set_name(name):
     fields = ['name', 'path', 'date']
     # time stamp 
-    now = datetime.now() # current date and time
+    now = datetime.datetime.now() # current date and time
     date_time = now.strftime("%m/%d/%Y %H:%M:%S")
 
     # my data rows as dictionary objects  
@@ -115,7 +115,7 @@ def get_name():
         data = {"name" : None, "path" : None, "date" : None}
         response = app.response_class(
             response=json.dumps(data),
-            status=400,
+            status=403,
             mimetype='application/json'
         )                    
     else: 

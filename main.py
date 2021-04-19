@@ -10,11 +10,11 @@ import csv
 app = Flask(__name__)
 
 
-face_det = False
+# face_det = False
 
 status_of_registration = False
 
-TOTAL_OF_PICTURES_ = 17
+TOTAL_OF_PICTURES_ = 8
 
 pictures_taken_per_side = None
 pic_taken = 0
@@ -31,7 +31,7 @@ def home():
     return "<h1>Face Enrolling - VisionTech</h1>"
 
 def gen(camera):
-    global face_det
+    # global face_det
     global status_of_registration
     global pictures_taken_per_side
     global pic_taken
@@ -51,11 +51,11 @@ def video_feed():
     return Response(gen(VideoCamera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
                 
-@app.route('/status_of_pictures', methods=['GET'])
+@app.route('/status', methods=['GET'])
 def status_of_pictures():   
     return {"status": "{}".format(status_of_registration)}, 201
 
-@app.route('/taken_pictures', methods=['GET'])
+@app.route('/pictures', methods=['GET'])
 def taken_pictures():
     data = {"pictures_taken" : pic_taken, "picture_total" : TOTAL_OF_PICTURES_,
             "pictures_per_side": pictures_taken_per_side}
@@ -66,7 +66,7 @@ def taken_pictures():
     )
     return response
 
-@app.route('/current_path', methods=['GET'])
+@app.route('/path', methods=['GET'])
 def current_path():
     data = {"path" : path_of_current_person}
     response = app.response_class(
@@ -76,7 +76,7 @@ def current_path():
     )
     return response
 
-@app.route('/set_name/<name>', methods=['GET'])
+@app.route('/name/<name>', methods=['GET'])
 def set_name(name):
     # writing to csv file  
     filename = './pictures/person_0/names.txt'

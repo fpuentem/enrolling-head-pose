@@ -1,2 +1,2 @@
 name,path,date
-roberto_angulo_pain,./pictures/person_4/,"11/18/2020, 22:36:07"
+None,None,None

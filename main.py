@@ -106,24 +106,24 @@ def get_name():
             if line_count == 0:
                 print(f'Column names are {", ".join(row)}')
                 line_count += 1
-            else:
-                if(row["name"] == "None" and row["path"] == None):
-                    # return {"status": "ERROR"}, 401
-                    data = {"name" : None, "path" : None, "date" : None}
-                    response = app.response_class(
-                        response=json.dumps(data),
-                        status=400,
-                        mimetype='application/json'
-                    )                    
-                else: 
-                    data = {"name" : row["name"], "path" : row["path"], "date" : row["delete"]}
-                    response = app.response_class(
-                        response=json.dumps(data),
-                        status=200,
-                        mimetype='application/json'
-                    )
-                print(f'\t{row["name"]} pictures in {row["path"]}, taken date: {row["date"]}.')
-                line_count += 1
+
+            if(row["name"] == "None" and row["path"] == None):
+                # return {"status": "ERROR"}, 401
+                data = {"name" : None, "path" : None, "date" : None}
+                response = app.response_class(
+                    response=json.dumps(data),
+                    status=400,
+                    mimetype='application/json'
+                )                    
+            else: 
+                data = {"name" : row["name"], "path" : row["path"], "date" : row["delete"]}
+                response = app.response_class(
+                    response=json.dumps(data),
+                    status=200,
+                    mimetype='application/json'
+                )
+            print(f'\t{row["name"]} pictures in {row["path"]}, taken date: {row["date"]}.')
+            line_count += 1
         print(f'Processed {line_count} lines.')
 
     return response

@@ -67,13 +67,15 @@ def get_head_pose(shape):
     return reprojectdst, euler_angle
 
 
-ds_factor = 0.6
+ds_factor = 0.75
 # euler_angle = None
 
 
-NUM_OF_PICTURES_RIGHT = 3
-NUM_OF_PICTURES_LEFT = 3
-NUM_OF_PICTURES_CENTER = 5 
+NUM_OF_PICTURES_RIGHT = 2
+NUM_OF_PICTURES_LEFT = 2
+NUM_OF_PICTURES_CENTER = 4 
+
+PICTURES_DIR = './pictures'
 
 class VideoCamera():
     def __init__(self):
@@ -117,7 +119,7 @@ class VideoCamera():
 
                 self.frontal_face_snaps(euler_angle, frame, self.counter_frontal, self.counter_frontal_bool, self.current_folder)
 
-
+                # Line and text draws, it is for test pourposes
                 for (x, y) in shape:
                     cv2.circle(frame, (x, y), 1, (0, 0, 255), -1)
 
@@ -179,7 +181,6 @@ class VideoCamera():
         print(counter_frontal)        
 
     def create_folder_of_person(self):
-        PICTURES_DIR = './pictures'
         entries = os.listdir(PICTURES_DIR)
         list_of_folders = []
 

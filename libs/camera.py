@@ -67,7 +67,7 @@ def get_head_pose(shape):
     return reprojectdst, euler_angle
 
 
-ds_factor = 0.75
+ds_factor = 0.5
 # euler_angle = None
 
 

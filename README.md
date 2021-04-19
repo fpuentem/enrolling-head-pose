@@ -1,7 +1,7 @@
 # enrolling-head-pose
 Head pose stimation and snapshots for further processing in enrolling system.
 
-$ docker buil -f jetson.Dockerfile -t "vt/enrolling-head-pose:latest-jetson-xavier" .
+$ docker build -f jetson.Dockerfile -t "vt/enrolling-head-pose:latest-jetson-xavier" .
 
 $ docker run -it -d -p 0.0.0.0:5000:5000 vt/enrolling-head-pose:latest-jetson-xavier
 
@@ -10,3 +10,6 @@ $ docker run -it --volumes-from 6d0c328cbf56 nvcr.io/nvidia/l4t-base:r32.3.1 /bi
 
 # Enrolling
 docker run --device /dev/video0 -v /repo/pictures -it -d -p 0.0.0.0:5000:5000 vt/enrolling-head-pose:latest-jetson-xavier
+
+
+docker run -it --runtime nvidia --device /dev/video0 -p 0.0.0.0:5000:5000 -v "$PWD":/repo vt/enrolling-head-pose:latest-jetson-xavier

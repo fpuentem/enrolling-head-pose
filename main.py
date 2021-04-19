@@ -58,7 +58,7 @@ def video_feed():
     return Response(gen(VideoCamera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
                 
-@app.route('/pictures', methods=['GET'])
+@app.route('/status', methods=['GET'])
 def taken_pictures():
     data = {"pictures_taken" : pic_taken, "picture_total" : TOTAL_OF_PICTURES_,
             "pictures_per_side": pictures_taken_per_side, "status":status_of_registration}

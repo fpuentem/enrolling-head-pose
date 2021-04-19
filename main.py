@@ -110,7 +110,7 @@ def get_name():
             line_count += 1
         print(f'Processed {line_count} lines.')
     
-    if(row["name"] == "None" and row["path"] == None):
+    if(row["name"] == "None" or row["path"] == "None"):
         # return {"status": "ERROR"}, 401
         data = {"name" : None, "path" : None, "date" : None}
         response = app.response_class(

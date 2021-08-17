@@ -113,6 +113,7 @@ RUN apt-get install -y --fix-missing \
 	python3-wget
 
 RUN pip3 install -r requirements.txt 
+RUN pip3 install --upgrade setuptools
 
 COPY . /repo/
 WORKDIR /repo

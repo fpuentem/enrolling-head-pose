@@ -71,9 +71,9 @@ ds_factor = 0.5
 # euler_angle = None
 
 
-NUM_OF_PICTURES_RIGHT = 2
-NUM_OF_PICTURES_LEFT = 2
-NUM_OF_PICTURES_CENTER = 4 
+NUM_OF_PICTURES_RIGHT = 1
+NUM_OF_PICTURES_LEFT = 1
+NUM_OF_PICTURES_CENTER = 2 
 
 PICTURES_DIR = './pictures'
 
@@ -120,19 +120,19 @@ class VideoCamera():
                 self.frontal_face_snaps(euler_angle, frame, self.counter_frontal, self.counter_frontal_bool, self.current_folder)
 
                 # Line and text draws, it is for test pourposes
-                for (x, y) in shape:
-                    cv2.circle(frame, (x, y), 1, (0, 0, 255), -1)
+                # for (x, y) in shape:
+                #     cv2.circle(frame, (x, y), 1, (0, 0, 255), -1)
 
-                for start, end in line_pairs:
-                    cv2.line(frame, reprojectdst[start], reprojectdst[end], (0, 0, 255))
+                # for start, end in line_pairs:
+                #     cv2.line(frame, reprojectdst[start], reprojectdst[end], (0, 0, 255))
 
                 
-                cv2.putText(frame, "X: " + "{:7.2f}".format(euler_angle[0, 0]), (20, 20), cv2.FONT_HERSHEY_SIMPLEX,
-                            0.75, (0, 0, 0), thickness=2)
-                cv2.putText(frame, "Y: " + "{:7.2f}".format(euler_angle[1, 0]), (20, 50), cv2.FONT_HERSHEY_SIMPLEX,
-                            0.75, (0, 0, 0), thickness=2)
-                cv2.putText(frame, "Z: " + "{:7.2f}".format(euler_angle[2, 0]), (20, 80), cv2.FONT_HERSHEY_SIMPLEX,
-                            0.75, (0, 0, 0), thickness=2)
+                # cv2.putText(frame, "X: " + "{:7.2f}".format(euler_angle[0, 0]), (20, 20), cv2.FONT_HERSHEY_SIMPLEX,
+                #             0.75, (0, 0, 0), thickness=2)
+                # cv2.putText(frame, "Y: " + "{:7.2f}".format(euler_angle[1, 0]), (20, 50), cv2.FONT_HERSHEY_SIMPLEX,
+                #             0.75, (0, 0, 0), thickness=2)
+                # cv2.putText(frame, "Z: " + "{:7.2f}".format(euler_angle[2, 0]), (20, 80), cv2.FONT_HERSHEY_SIMPLEX,
+                #             0.75, (0, 0, 0), thickness=2)
 
         ret, jpeg = cv2.imencode('.jpg', frame)
         return jpeg.tobytes()

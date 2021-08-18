@@ -18,7 +18,7 @@ app = Flask(__name__)
 
 status_of_registration = False
 
-TOTAL_OF_PICTURES_ = 12
+TOTAL_OF_PICTURES_ = 4
 
 pictures_taken_per_side = None
 pic_taken = 0
@@ -127,6 +127,54 @@ def get_name():
         )
 
     return response
+
+@app.route('/compare', methods=['GET'])
+def compare_to_database():
+    now = datetime.datetime.now() 
+    ts = now.strftime('%Y-%m-%d %H:%M:%S')
+
+    # cv2.imwrite(picture_address, im)
+    
+    r = subprocess.Popen(['./programs/FaceMeSDKVideoSampleTool', 'recognize', path_of_current_person],
+                    stdout=subprocess.PIPE, 
+                    stderr=subprocess.STDOUT)
+
+    stdout, _ = r.communicate()    
+
+    msg = stdout.decode('utf-8')
+    print("stdout: {}".format(msg))
+
+    result_license_issue = msg.find("The license hasn't been activated yet")
+    print("Find result: {}".format(result_license_issue))
+
+    if result_license_issue != 0:
+        msg_ = json.loads(msg)
+
+        faces = msg_[0]["faces"]
+
+        data = {"people": len(faces), "faces": faces, "ts": ts}
+        
+        response = app.response_class(
+            response = json.dumps(data),
+            status = 200,
+            mimetype = 'application/json'
+            )
+    
+    else:
+        print("Type of msg: {}".format(type(msg)))
+        print("msg: {}".format(msg))
+
+        data = {"message":msg, "ts": ts}
+        print("Data: {}".format(data))
+        
+        response = app.response_class(
+            response = json.dumps(data),
+            status = 400,
+            mimetype = 'application/json'
+            )
+
+    return response
+
 
 @app.route('/listdb', methods=['GET'])
 def people():
